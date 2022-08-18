@@ -5,7 +5,7 @@ I created this program to count cards for a live Blackjack game using a trained 
 
 There are two main sections for this project:
 
-1. Install tensorflow, and train a neural network to detect all 52 types of playing cards in a deck.
+1. Install tensorflow, and train a neural network to detect all 52 types of playing cards in a deck. The images and gifs below are recordings of the ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8 neural network architecture.
 2. Real time object detection; where you will load the trained neural network from part one and feed it a live webcam feed to perform object detection. Using the neural network's output, you will then be able to determine the following: 1. The current count of the deck, both the dealer's and player's hand total, and the best next move for the player (based on Stand on Soft 17 Blackjack rules).
 
 
