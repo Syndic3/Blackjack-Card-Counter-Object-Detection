@@ -2,7 +2,9 @@
 
 
 
-This program is designed to count cards and calculate the best possible move for the player in a live Blackjack game. A neural network was trained using the Tensorflow Object Detection API to detect playing cards and the detection is performed on an OpenCV webcam feed.
+This program is designed to count cards and calculate the best possible move for the player in a live Blackjack game. A neural network was trained using the Tensorflow 2.9.1 Object Detection API to detect playing cards and the detection is performed on an OpenCV 4.6.0 webcam feed.
+
+Versio
 
 
 # Mode 1: Card Counting Practice
