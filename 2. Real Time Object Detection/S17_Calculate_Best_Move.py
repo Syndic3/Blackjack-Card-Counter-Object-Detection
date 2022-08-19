@@ -4,6 +4,22 @@
 # In[1]:
 
 
+dealer_detections = [['QS'],[5]]
+player_detections = [['AS','AC'],[5,9]]
+dealer_hand_total = 10
+player_hand_total = 12
+count= 3
+
+
+# In[2]:
+
+
+options = ['Hit','Stand','Double','Split']
+
+
+# In[3]:
+
+
 #calculate sum of all non-ace cards in hand first
 
 def calculate_hand(hand_total,x):
@@ -14,7 +30,7 @@ def calculate_hand(hand_total,x):
     return hand_total
 
 
-# In[2]:
+# In[4]:
 
 
 #this function handles calculating the soft/hard totals of a hand given a list of detections
@@ -60,21 +76,35 @@ def hand_total(input_hand):
     return card_total, soft_total
 
 
-# In[3]:
+# In[5]:
 
 
-#check if the card values without suits match.
 def is_hand_pair(player_detections):
+    print("Player has: ",str(player_detections[0])[:-1],(str(player_detections[1])[:-1]))
     if (str(player_detections[0])[:-1]==str(player_detections[1])[:-1]):
+        
         return True
 
+    
 
-# In[4]:
+
+# In[6]:
 
 
-#Calculate move based on count, dealers up-card, and on player's soft-total
+def is_hand_soft_total(player_detections):
+    if hand_total(player_detections)[1]: #take the first return of hand_total which returns soft_total or not
+        return 'Soft'
+    else:
+        return 'Hard'
+                                            
+
+
+# In[7]:
+
 
 def soft_totals(player_detections,player_hand_total, dealer_total, count):
+    decision = ''
+    
     if player_hand_total == 20:
         return 'Stand'
     elif player_hand_total == 19:
@@ -127,10 +157,9 @@ def soft_totals(player_detections,player_hand_total, dealer_total, count):
             return 'Hit'
 
 
-# In[5]:
+# In[8]:
 
 
-#Calculate move based on count, dealers up-card, and on player's hard-total
 def hard_totals(player_detections,player_hand_total, dealer_total, count):
     if player_hand_total >=17 and player_hand_total <= 21:
         return 'Stand'
@@ -244,10 +273,10 @@ def hard_totals(player_detections,player_hand_total, dealer_total, count):
     
 
 
-# In[14]:
+# In[16]:
 
 
-def soft_17(player_detections, dealer_hand_total, count):
+def soft_17_new_test(player_detections, dealer_hand_total, count):
     
     player_detections=player_detections[0]
     player_hand_size = len(player_detections)
@@ -259,36 +288,64 @@ def soft_17(player_detections, dealer_hand_total, count):
     
     decision= None
     
-    #Step 1: Check if hand is == 2 cards, then check if it is a pair.
+    #Step 1: Check if hand is == 2 cards
     
     if player_hand_size == 2:
         #Step 2: Check if hand is a pair
         if is_hand_pair(player_detections):
             #if it is a pair, then call pairs()
-            decision = pairs(player_detections, dealer_hand_total, count)    
-        else: #Not a pair
-            decision = 'Continue'
+            print("This is a pair.")
+            decision = pairs(player_detections, dealer_hand_total, count)
             
-    #Step 2: If this player previously hit, or the original hand is not a pair:
-    
-    if player_hand_size >2 or decision == 'Continue':
-        #2.A Hand is a Soft-total
-        if soft_total == True:
-            decision = soft_totals(player_detections,player_hand_total, dealer_hand_total, count)
-        #2.B Hand is a Hard-Total
         else:
+            decision = 'Continue'
+            print("This is not a pair.")
+            
+            
+    if player_hand_size >2 or decision == 'Continue':
+        #step 3 check if hand total is soft
+        print("moved onto second if statement")
+        
+
+        
+        if soft_total == True:
+            print("This is a soft total.")
+            decision = soft_totals(player_detections,player_hand_total, dealer_hand_total, count)
+            if (decision == 'Double') and (player_hand_size >2):
+                decision = 'Hit'
+        else: #if it is a hard total, calculate hard total
+            print("This is a hard total.")
             decision = hard_totals(player_detections,player_hand_total, dealer_hand_total, count)    
+            if (decision == 'Double') and (player_hand_size >2):
+                decision = 'Hit'
+            
+        
     return decision    
     
     
 
 
-# In[7]:
+# In[10]:
+
+
+player_hand_total, soft_or_hard = hand_total(player_detections[0])
+
+
+# In[11]:
+
+
+print(soft_or_hard)
+
+
+# In[12]:
 
 
 def pairs(player_detection, dealer_total, count):
     player_pair = player_detection[0][:-1]
     
+    print("pairs() sees player_pair as: ", player_pair)
+    
+    #print("player_pair is                    :", player_pair,":",len(player_pair),player_pair == '10')
     if player_pair in ('A','8'):
         return 'Split'
     if player_pair == 'A':
@@ -337,3 +394,86 @@ def pairs(player_detection, dealer_total, count):
 
     
     
+
+
+# In[14]:
+
+
+dealer_detections = [['2S','3S','4S','5S','6S','7S','8S','9S','10S','AS'],[5]]
+player_detections = [['AS','8S','2S'],[5,9]]
+dealer_hand_total_LIST = [2,3,4,5,6,7,8,9,10,11] 
+#dealer_hand_total = 5
+#player_hand_total = 14
+count= 3
+#player should NOT be doubling if hand count >3
+
+
+# In[ ]:
+
+
+
+
+
+# In[17]:
+
+
+for i in dealer_hand_total_LIST:
+    #print("Ace pair:")
+    print("dealer total: ",i,"\n Play = ",(soft_17_new_test(player_detections, i, count)))
+    print()
+#def soft_17_new(player_detections,player_hand_total, dealer_hand_total, count):
+
+
+# # broken below
+
+# In[ ]:
+
+
+dealer_detections = [['QS'],[5]]
+player_detections = [['10S','2C'],[5,9]]
+dealer_hand_total = 10
+player_hand_total = 12
+count= 3
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
