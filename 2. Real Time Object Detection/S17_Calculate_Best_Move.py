@@ -30,7 +30,7 @@ def calculate_hand(hand_total,x):
     return hand_total
 
 
-# In[4]:
+# In[20]:
 
 
 #this function handles calculating the soft/hard totals of a hand given a list of detections
@@ -55,7 +55,7 @@ def hand_total(input_hand):
     ace_11 = 0
     
     # >1 ace in hand
-    if (ace_count>0 and remainder/11>1):
+    if (ace_count>0 and remainder/11>=1):
         ace_11 = 1
         ace_count -= 1 #subtract the ace that became '11'
  
@@ -273,17 +273,17 @@ def hard_totals(player_detections,player_hand_total, dealer_total, count):
     
 
 
-# In[16]:
+# In[18]:
 
 
-def soft_17_new_test(player_detections, dealer_hand_total, count):
+def soft_17(player_detections, dealer_hand_total, count):
     
     player_detections=player_detections[0]
     player_hand_size = len(player_detections)
    
 
     player_hand_total, soft_total = hand_total(player_detections)
-
+    print(player_hand_total)
     #print("player's hand == ", player_detections)
     
     decision= None
@@ -323,18 +323,6 @@ def soft_17_new_test(player_detections, dealer_hand_total, count):
     return decision    
     
     
-
-
-# In[10]:
-
-
-player_hand_total, soft_or_hard = hand_total(player_detections[0])
-
-
-# In[11]:
-
-
-print(soft_or_hard)
 
 
 # In[12]:
@@ -394,46 +382,6 @@ def pairs(player_detection, dealer_total, count):
 
     
     
-
-
-# In[14]:
-
-
-dealer_detections = [['2S','3S','4S','5S','6S','7S','8S','9S','10S','AS'],[5]]
-player_detections = [['AS','8S','2S'],[5,9]]
-dealer_hand_total_LIST = [2,3,4,5,6,7,8,9,10,11] 
-#dealer_hand_total = 5
-#player_hand_total = 14
-count= 3
-#player should NOT be doubling if hand count >3
-
-
-# In[ ]:
-
-
-
-
-
-# In[17]:
-
-
-for i in dealer_hand_total_LIST:
-    #print("Ace pair:")
-    print("dealer total: ",i,"\n Play = ",(soft_17_new_test(player_detections, i, count)))
-    print()
-#def soft_17_new(player_detections,player_hand_total, dealer_hand_total, count):
-
-
-# # broken below
-
-# In[ ]:
-
-
-dealer_detections = [['QS'],[5]]
-player_detections = [['10S','2C'],[5,9]]
-dealer_hand_total = 10
-player_hand_total = 12
-count= 3
 
 
 # In[ ]:
