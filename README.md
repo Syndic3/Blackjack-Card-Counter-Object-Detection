@@ -15,7 +15,7 @@ This program is designed to count cards and calculate the best possible move for
 * This mode calculates the player's best next move based on the overall deck's count, player and dealer's hand totals.
 * NOTE: This is based on the Soft 17 Blackjack Deviation.
 
-<img src="https://media.giphy.com/media/O49zPhgr0nj8KK2CP5/giphy-downsized-large.gif" alt="Sublime's custom image"/>
+![Alt Text](https://github.com/NpEric360/Blackjack-Card-Counter-Object-Detection/blob/main/pvd.gif)
 
 # There are two main sections for this project:
 
